@@ -1,0 +1,343 @@
+<html><body><div align="left">
+ <font style="font-size:16;">&lt;!DOCTYPE&nbsp;html&gt;</font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;">&lt;html&nbsp;lang="ru"&gt;</font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&lt;head&gt;</font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;charset="UTF-8"&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta&nbsp;name="viewport"&nbsp;content="width=device-width,&nbsp;initial-scale=1.0,&nbsp;user-scalable=no"&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Dino&nbsp;Runner&lt;/title&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;style&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body&nbsp;{&nbsp;margin:&nbsp;0;&nbsp;display:&nbsp;flex;&nbsp;flex-direction:&nbsp;column;&nbsp;align-items:&nbsp;center;&nbsp;justify-content:&nbsp;center;&nbsp;height:&nbsp;100vh;&nbsp;background:&nbsp;#f7f7f7;&nbsp;font-family:&nbsp;sans-serif;&nbsp;overflow:&nbsp;hidden;&nbsp;}</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#game&nbsp;{&nbsp;background:&nbsp;#fff;&nbsp;border:&nbsp;1px&nbsp;solid&nbsp;#ddd;&nbsp;display:&nbsp;block;&nbsp;width:&nbsp;100%;&nbsp;max-width:&nbsp;800px;&nbsp;height:&nbsp;auto;&nbsp;box-shadow:&nbsp;0&nbsp;4px&nbsp;10px&nbsp;rgba(0,0,0,0.1);&nbsp;}</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;{&nbsp;margin:&nbsp;15px;&nbsp;padding:&nbsp;12px&nbsp;40px;&nbsp;font-size:&nbsp;20px;&nbsp;border-radius:&nbsp;10px;&nbsp;border:&nbsp;none;&nbsp;background:&nbsp;#3CB44B;&nbsp;color:&nbsp;white;&nbsp;font-weight:&nbsp;bold;&nbsp;cursor:&nbsp;pointer;&nbsp;}</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&lt;/head&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&lt;body&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;canvas&nbsp;id="game"&nbsp;width="800"&nbsp;height="300"&gt;&lt;/canvas&gt;</font></font></font></font>
+</div></body></html><html><body><div align="left">
+ <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;onclick="jump()"&gt;⬆&nbsp;ПРЫЖОК&lt;/button&gt;</font></font></font></font>
+</div></body></html><html><body><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+   <div align="left">
+    <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&gt;</font>
+   </div>
+   <div align="left">
+    <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;canvas&nbsp;=&nbsp;document.getElementById('game');</font></font>
+   </div>
+   <div align="left">
+    <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;ctx&nbsp;=&nbsp;canvas.getContext('2d');</font></font></font>
+   </div>
+   <div align="left">
+    <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;GROUND_Y&nbsp;=&nbsp;250;</font></font></font></font>
+   </div>
+   <div align="left">
+    <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;DINO_W&nbsp;=&nbsp;40,&nbsp;DINO_H&nbsp;=&nbsp;50;</font></font></font></font>
+   </div>
+   <div align="left">
+    <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;CACTUS_W&nbsp;=&nbsp;25,&nbsp;CACTUS_H&nbsp;=&nbsp;50;</font></font></font></font>
+   </div>
+   <div align="left">
+    <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;GRAVITY&nbsp;=&nbsp;1.2,&nbsp;JUMP_FORCE&nbsp;=&nbsp;-18;</font></font></font></font>
+   </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+      <div align="left">
+       <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;dino&nbsp;=&nbsp;{&nbsp;x:&nbsp;50,&nbsp;y:&nbsp;GROUND_Y&nbsp;-&nbsp;DINO_H,&nbsp;vy:&nbsp;0,&nbsp;jumping:&nbsp;false&nbsp;};</font>
+      </div>
+      <div align="left">
+       <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;cacti&nbsp;=&nbsp;[];</font></font>
+      </div>
+      <div align="left">
+       <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;score&nbsp;=&nbsp;0;</font></font></font>
+      </div>
+      <div align="left">
+       <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;speed&nbsp;=&nbsp;6;</font></font></font></font>
+      </div>
+      <div align="left">
+       <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;gameOver&nbsp;=&nbsp;false;</font></font></font></font>
+      </div>
+      <div align="left">
+       <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;started&nbsp;=&nbsp;false;</font></font></font></font>
+      </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+         <div align="left">
+          <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;jump()&nbsp;{</font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(gameOver)&nbsp;{</font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reset();</font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</font></font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!dino.jumping)&nbsp;{</font></font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.vy&nbsp;=&nbsp;JUMP_FORCE;</font></font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.jumping&nbsp;=&nbsp;true;</font></font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;started&nbsp;=&nbsp;true;</font></font></font></font>
+         </div>
+         <div align="left">
+          <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+         </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+            <div align="left">
+             <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;reset()&nbsp;{</font>
+            </div>
+            <div align="left">
+             <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.y&nbsp;=&nbsp;GROUND_Y&nbsp;-&nbsp;DINO_H;&nbsp;dino.vy&nbsp;=&nbsp;0;&nbsp;dino.jumping&nbsp;=&nbsp;false;</font></font>
+            </div>
+            <div align="left">
+             <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cacti&nbsp;=&nbsp;[];&nbsp;score&nbsp;=&nbsp;0;&nbsp;speed&nbsp;=&nbsp;6;&nbsp;gameOver&nbsp;=&nbsp;false;&nbsp;started&nbsp;=&nbsp;true;</font></font></font>
+            </div>
+            <div align="left">
+             <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+            </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+               <div align="left">
+                <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;update()&nbsp;{</font>
+               </div>
+               <div align="left">
+                <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(gameOver)&nbsp;return;</font></font>
+               </div><font style="font-size:16;"><font style="font-size:16;"><br>
+                 <div align="left">
+                  <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(started)&nbsp;{</font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Физика</font></font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.y&nbsp;+=&nbsp;dino.vy;</font></font></font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.vy&nbsp;+=&nbsp;GRAVITY;</font></font></font></font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(dino.y&nbsp;&gt;=&nbsp;GROUND_Y&nbsp;-&nbsp;DINO_H)&nbsp;{</font></font></font></font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.y&nbsp;=&nbsp;GROUND_Y&nbsp;-&nbsp;DINO_H;</font></font></font></font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.vy&nbsp;=&nbsp;0;</font></font></font></font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.jumping&nbsp;=&nbsp;false;</font></font></font></font>
+                 </div>
+                 <div align="left">
+                  <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                 </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                    <div align="left">
+                     <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Спавн&nbsp;кактусов</font>
+                    </div>
+                    <div align="left">
+                     <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(cacti.length&nbsp;===&nbsp;0&nbsp;||&nbsp;cacti[cacti.length-1].x&nbsp;&lt;&nbsp;canvas.width&nbsp;-&nbsp;350)&nbsp;{</font></font>
+                    </div>
+                    <div align="left">
+                     <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cacti.push({&nbsp;x:&nbsp;canvas.width,&nbsp;y:&nbsp;GROUND_Y&nbsp;-&nbsp;CACTUS_H&nbsp;});</font></font></font>
+                    </div>
+                    <div align="left">
+                     <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                    </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                       <div align="left">
+                        <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Движение</font>
+                       </div>
+                       <div align="left">
+                        <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cacti.forEach(c&nbsp;=&gt;&nbsp;c.x&nbsp;-=&nbsp;speed);</font></font>
+                       </div>
+                       <div align="left">
+                        <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cacti&nbsp;=&nbsp;cacti.filter(c&nbsp;=&gt;&nbsp;c.x&nbsp;&gt;&nbsp;-CACTUS_W);</font></font></font>
+                       </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                          <div align="left">
+                           <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Столкновения</font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(let&nbsp;c&nbsp;of&nbsp;cacti)&nbsp;{</font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(dino.x&nbsp;+&nbsp;5&nbsp;&lt;&nbsp;c.x&nbsp;+&nbsp;CACTUS_W&nbsp;&amp;&amp;&nbsp;dino.x&nbsp;+&nbsp;DINO_W&nbsp;-&nbsp;5&nbsp;&gt;&nbsp;c.x&nbsp;&amp;&amp;</font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino.y&nbsp;+&nbsp;5&nbsp;&lt;&nbsp;c.y&nbsp;+&nbsp;CACTUS_H&nbsp;&amp;&amp;&nbsp;dino.y&nbsp;+&nbsp;DINO_H&nbsp;&gt;&nbsp;c.y)&nbsp;{</font></font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gameOver&nbsp;=&nbsp;true;</font></font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score++;</font></font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(score&nbsp;%&nbsp;200&nbsp;===&nbsp;0)&nbsp;speed++;</font></font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                          </div>
+                          <div align="left">
+                           <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                          </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                             <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;draw()&nbsp;{</font>
+                             </div>
+                             <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.clearRect(0,&nbsp;0,&nbsp;canvas.width,&nbsp;canvas.height);</font></font>
+                             </div><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Земля</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.beginPath();&nbsp;ctx.moveTo(0,&nbsp;GROUND_Y);&nbsp;ctx.lineTo(canvas.width,&nbsp;GROUND_Y);</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.strokeStyle&nbsp;=&nbsp;"gray";&nbsp;ctx.lineWidth&nbsp;=&nbsp;3;&nbsp;ctx.stroke();</font></font></font>
+                              </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!gameOver)&nbsp;{</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Динозаврик</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"#3CB44B";</font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillRect(dino.x,&nbsp;dino.y&nbsp;+&nbsp;10,&nbsp;DINO_W,&nbsp;DINO_H&nbsp;-&nbsp;10);</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillRect(dino.x&nbsp;+&nbsp;20,&nbsp;dino.y,&nbsp;25,&nbsp;20);&nbsp;//&nbsp;Голова</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"white";&nbsp;ctx.beginPath();&nbsp;ctx.arc(dino.x&nbsp;+&nbsp;38,&nbsp;dino.y&nbsp;+&nbsp;8,&nbsp;3,&nbsp;0,&nbsp;Math.PI*2);&nbsp;ctx.fill();</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"black";&nbsp;ctx.beginPath();&nbsp;ctx.arc(dino.x&nbsp;+&nbsp;39,&nbsp;dino.y&nbsp;+&nbsp;8,&nbsp;1,&nbsp;0,&nbsp;Math.PI*2);&nbsp;ctx.fill();</font></font></font></font>
+                              </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Кактусы</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"#DC3232";</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cacti.forEach(c&nbsp;=&gt;&nbsp;{</font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillRect(c.x,&nbsp;c.y,&nbsp;CACTUS_W,&nbsp;CACTUS_H);</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillRect(c.x&nbsp;-&nbsp;6,&nbsp;c.y&nbsp;+&nbsp;15,&nbsp;8,&nbsp;15);</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillRect(c.x&nbsp;+&nbsp;CACTUS_W&nbsp;-&nbsp;2,&nbsp;c.y&nbsp;+&nbsp;25,&nbsp;8,&nbsp;15);</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</font></font></font></font>
+                              </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Счёт</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"black";&nbsp;ctx.font&nbsp;=&nbsp;"20px&nbsp;Arial";</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillText("Счёт:&nbsp;"&nbsp;+&nbsp;score,&nbsp;canvas.width&nbsp;-&nbsp;120,&nbsp;30);</font></font></font>
+                              </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!started)&nbsp;{</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"gray";&nbsp;ctx.font&nbsp;=&nbsp;"18px&nbsp;Arial";</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillText("Нажми&nbsp;ПРЫЖОК",&nbsp;canvas.width/2&nbsp;-&nbsp;80,&nbsp;canvas.height/2);</font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"red";&nbsp;ctx.font&nbsp;=&nbsp;"40px&nbsp;Arial";</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillText("GAME&nbsp;OVER",&nbsp;canvas.width/2&nbsp;-&nbsp;130,&nbsp;canvas.height/2&nbsp;-&nbsp;20);</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"black";&nbsp;ctx.font&nbsp;=&nbsp;"20px&nbsp;Arial";</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillText("Счёт:&nbsp;"&nbsp;+&nbsp;score,&nbsp;canvas.width/2&nbsp;-&nbsp;50,&nbsp;canvas.height/2&nbsp;+&nbsp;30);</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillStyle&nbsp;=&nbsp;"gray";&nbsp;ctx.font&nbsp;=&nbsp;"16px&nbsp;Arial";</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ctx.fillText("Нажми&nbsp;ПРЫЖОК&nbsp;для&nbsp;рестарта",&nbsp;canvas.width/2&nbsp;-&nbsp;120,&nbsp;canvas.height/2&nbsp;+&nbsp;60);</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                              </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;loop()&nbsp;{</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;update();&nbsp;draw();</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;requestAnimationFrame(loop);</font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></font></font></font>
+                              </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Управление&nbsp;с&nbsp;клавиатуры&nbsp;(для&nbsp;теста&nbsp;на&nbsp;ПК)</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.addEventListener('keydown',&nbsp;(e)&nbsp;=&gt;&nbsp;{</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(e.code&nbsp;===&nbsp;'Space'&nbsp;||&nbsp;e.code&nbsp;===&nbsp;'ArrowUp')&nbsp;jump();</font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</font></font></font></font>
+                              </div><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><br>
+                              <div align="left">
+                              <font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loop();</font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/script&gt;</font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&lt;/body&gt;</font></font></font>
+                              </div>
+                              <div align="left">
+                              <font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;"><font style="font-size:16;">&lt;/html&gt;</font></font></font></font>
+                              </div></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></body></html>
