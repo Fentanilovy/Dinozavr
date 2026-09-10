@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dino Runner</title>
+    <style>
+        body { margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f7f7f7; font-family: sans-serif; overflow: hidden; }
+        #game { background: #fff; border: 1px solid #ddd; display: block; width: 100%; max-width: 800px; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        button { margin: 15px; padding: 12px 40px; font-size: 20px; border-radius: 10px; border: none; background: #3CB44B; color: white; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <canvas id="game" width="800" height="300"></canvas>
+    <button onclick="jump()">⬆ ПРЫЖОК</button>
+
+    <script>
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        const GROUND_Y = 250;
+        const DINO_W = 40, DINO_H = 50;
+        const CACTUS_W = 25, CACTUS_H = 50;
+        const GRAVITY = 1.2, JUMP_FORCE = -18;
+
+        let dino = { x: 50, y: GROUND_Y - DINO_H, vy: 0, jumping: false };
+        let cacti = [];
+        let score = 0;
+        let speed = 6;
+        let gameOver = false;
+        let started = false;
+
+        function jump() {
+            if (gameOver) {
+                reset();
+                return;
+            }
+            if (!dino.jumping) {
+                dino.vy = JUMP_FORCE;
+                dino.jumping = true;
+            }
+            started = true;
+        }
+
+        function reset() {
+            dino.y = GROUND_Y - DINO_H;
+            dino.vy = 0;
+            dino.jumping = false;
+            cacti = [];
+            score = 0;
+            speed = 6;
+            gameOver = false;
+            started = true;
+        }
+
+        function update() {
+            if (gameOver) return;
+
+            if (started) {
+                dino.y += dino.vy;
+                dino.vy += GRAVITY;
+                if (dino.y >= GROUND_Y - DINO_H) {
+                    dino.y = GROUND_Y - DINO_H;
+                    dino.vy = 0;
+                    dino.jumping = false;
+                }
+
+                if (cacti.length === 0 || cacti[cacti.length - 1].x < canvas.width - 350) {
+                    cacti.push({ x: canvas.width, y: GROUND_Y - CACTUS_H });
+                }
+
+                for (let i = 0; i < cacti.length; i++) {
+                    cacti[i].x -= speed;
+                }
+                cacti = cacti.filter(c => c.x > -CACTUS_W);
+
+                for (let c of cacti) {
+                    if (dino.x + 5 < c.x + CACTUS_W && dino.x + DINO_W - 5 > c.x &&
+                        dino.y + 5 < c.y + CACTUS_H && dino.y + DINO_H > c.y) {
+                        gameOver = true;
+                    }
+                }
+
+                score++;
+                if (score % 200 === 0) speed++;
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.moveTo(0, GROUND_Y);
+            ctx.lineTo(canvas.width, GROUND_Y);
+            ctx.strokeStyle = "gray";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            if (!gameOver) {
+                ctx.fillStyle = "#3CB44B";
+                ctx.fillRect(dino.x, dino.y + 10, DINO_W, DINO_H - 10);
+                ctx.fillRect(dino.x + 20, dino.y, 25, 20);
+
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.arc(dino.x + 38, dino.y + 8, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+                ctx.arc(dino.x + 39, dino.y + 8, 1, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = "#DC3232";
+                for (let c of cacti) {
+                    ctx.fillRect(c.x, c.y, CACTUS_W, CACTUS_H);
+                    ctx.fillRect(c.x - 6, c.y + 15, 8, 15);
+                    ctx.fillRect(c.x + CACTUS_W - 2, c.y + 25, 8, 15);
+                }
+
+                ctx.fillStyle = "black";
+                ctx.font = "20px Arial";
+                ctx.fillText("Счёт: " + score, canvas.width - 120, 30);
+
+                if (!started) {
+                    ctx.fillStyle = "gray";
+                    ctx.font = "18px Arial";
+                    ctx.fillText("Нажми ПРЫЖОК", canvas.width / 2 - 80, canvas.height / 2);
+                }
+            } else {
+                ctx.fillStyle = "red";
+                ctx.font = "40px Arial";
+                ctx.fillText("GAME OVER", canvas.width / 2 - 130, canvas.height / 2 - 20);
+
+                ctx.fillStyle = "black";
+                ctx.font = "20px Arial";
+                ctx.fillText("Счёт: " + score, canvas.width / 2 - 50, canvas.height / 2 + 30);
+
+                ctx.fillStyle = "gray";
+                ctx.font = "16px Arial";
+                ctx.fillText("Нажми ПРЫЖОК для рестарта", canvas.width / 2 - 120, canvas.height / 2 + 60);
+            }
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.code === 'Space' || e.code === 'ArrowUp') jump();
+        });
+
+        loop();
+    </script>
+</body>
+</html>
